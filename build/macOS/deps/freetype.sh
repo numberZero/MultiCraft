@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-#. sdk.sh
+. sdk.sh
 FREETYPE_VERSION=2.10.2
 
 if [ ! -d freetype-src ]; then
@@ -12,7 +12,7 @@ fi
 
 cd freetype-src
 
-#CFLAGS=$IOS_FLAGS \
+CFLAGS=$OSX_FLAGS \
 PKG_CONFIG=/bin/false \
 ./configure --prefix=/ \
 	--disable-shared --enable-static \
