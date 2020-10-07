@@ -2,8 +2,8 @@
 
 . sdk.sh
 
-#[ ! -d irrlicht-src ] && \
-#	git clone -b ogl-es --depth 1 https://github.com/MoNTE48/Irrlicht irrlicht-src
+[ ! -d irrlicht-src ] && \
+	git clone --depth 1 https://github.com/MoNTE48/Irrlicht-1.8 irrlicht-src
 
 cd irrlicht-src/source/Irrlicht/MacOSX
 xcodebuild build \
