@@ -1,12 +1,9 @@
-#import "VersionManager.h"
+#import <Foundation/Foundation.h>
 #import "ioswrap.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <Bugsnag/Bugsnag.h>
-#import <Foundation/Foundation.h>
 #import <MultiCraft-Swift.h>
-#import <UIKit/UIKit.h>
-#import "VersionManager.h"
 
 /* Initialization iOS Specific Things */
 void init_IOS_Settings()
@@ -77,16 +74,6 @@ void ioswrap_assets()
 
 	[progressVC dismissView];
 	window.backgroundColor = [UIColor blackColor];
-}
-
-void ioswrap_asset_refresh(void)
-{
-	char buf[256];
-	ioswrap_paths(PATH_LIBRARY_SUPPORT, buf, sizeof(buf));
-	NSString *destpath = [NSString stringWithUTF8String:buf];
-
-	// set asset version to 1, will be extracted next time
-	[VersionManager writeVersionWithPath:destpath ver:1];
 }
 
 /* Get Scale Factor */

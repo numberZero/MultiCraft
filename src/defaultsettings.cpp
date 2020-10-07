@@ -29,7 +29,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 
 #ifdef __IOS__
-#import <UIKit/UIKit.h>
 #import "SDVersion.h"
 #endif
 
@@ -177,7 +176,6 @@ void set_default_settings(Settings *settings) {
 	settings->setDefault("desynchronize_mapblock_texture_animation", "true");
 	settings->setDefault("hud_hotbar_max_width", "1.0");
 	settings->setDefault("hud_move_upwards", "0");
-	settings->setDefault("hud_small", "false");
 	settings->setDefault("round_screen", "0");
 	settings->setDefault("enable_local_map_saving", "false");
 	settings->setDefault("show_entity_selectionbox", "false");
@@ -382,10 +380,6 @@ void set_default_settings(Settings *settings) {
 	settings->setDefault("high_precision_fpu", "true");
 	settings->setDefault("enable_console", "false");
 
-	// Weather
-	settings->setDefault("weather", "true");
-	settings->setDefault("weather_snow_covers", "false");
-
 	settings->setDefault("mainmenu_last_selected_world", "1");
 
 	// Altered settings for macOS
@@ -437,7 +431,7 @@ void set_default_settings(Settings *settings) {
 		settings->setDefault("abm_interval", "3.0");
 		settings->setDefault("chunksize", "3");
 		settings->setDefault("max_block_generate_distance", "1");
-		settings->setDefault("weather", "false");
+		settings->setDefault("enable_weather", "false");
 #ifdef __ANDROID__
 	// low settings for 2-4GB RAM
 	} else if (porting::getMemoryMax() >= 2 && porting::getMemoryMax() < 4) {
@@ -459,7 +453,7 @@ void set_default_settings(Settings *settings) {
 		settings->setDefault("abm_interval", "2.0");
 		settings->setDefault("chunksize", "3");
 		settings->setDefault("max_block_generate_distance", "2");
-		settings->setDefault("weather", "false");
+		settings->setDefault("enable_weather", "false");
 #ifdef __ANDROID__
 	// medium settings for 4.1-6GB RAM
 	} else if (porting::getMemoryMax() >= 4 && porting::getMemoryMax() < 6) {
@@ -501,23 +495,19 @@ void set_default_settings(Settings *settings) {
 		settings->setDefault("hud_scaling", "0.55");
 		settings->setDefault("font_size", font_size_str_small);
 		settings->setDefault("mouse_sensitivity", "0.3");
-		settings->setDefault("hud_small", "true");
 	} else if (x_inches > 3.7 && x_inches <= 4.5) {
 		// medium phones
 		settings->setDefault("hud_scaling", "0.6");
 		settings->setDefault("font_size", font_size_str_small);
-		settings->setDefault("hud_small", "true");
 		settings->setDefault("selectionbox_width", "6");
-	} else if (x_inches > 4.5 && x_inches <= 5) {
+	} else if (x_inches > 4.5 && x_inches <= 5.5) {
 		// large 6" phones
 		settings->setDefault("hud_scaling", "0.7");
 		settings->setDefault("mouse_sensitivity", "0.15");
-		settings->setDefault("hud_small", "true");
 		settings->setDefault("selectionbox_width", "6");
-	} else if (x_inches > 5 && x_inches <= 6) {
+	} else if (x_inches > 5.5 && x_inches <= 6.5) {
 		// 7" tablets
 		settings->setDefault("hud_scaling", "0.9");
-		settings->setDefault("hud_small", "true");
 		settings->setDefault("selectionbox_width", "6");
 	}
 #endif // Android
@@ -531,9 +521,6 @@ void set_default_settings(Settings *settings) {
 	// Set font_path
 	settings->setDefault("mono_font_path", g_settings->get("font_path"));
 	settings->setDefault("fallback_font_path", g_settings->get("font_path"));
-
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-		settings->setDefault("hud_small", "true");
 
 	// Set the size of the elements depending on the screen size
 	if ([SDVersion deviceVersion] == iPhone4S) {

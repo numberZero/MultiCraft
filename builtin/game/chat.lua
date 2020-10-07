@@ -400,6 +400,9 @@ core.register_chatcommand("teleport", {
 			end
 			local teleportee = core.get_player_by_name(name)
 			if teleportee then
+				if teleportee:get_attach() then
+					return false, "Can't teleport, you're attached to an object!"
+				end
 				teleportee:set_pos(p)
 				return true, "Teleporting to " .. core.pos_to_string(p, 1)
 			end
@@ -417,6 +420,9 @@ core.register_chatcommand("teleport", {
 		end
 
 		if teleportee and p then
+			if teleportee:get_attach() then
+				return false, "Can't teleport, you're attached to an object!"
+			end
 			p = find_free_position_near(p)
 			teleportee:set_pos(p)
 			return true, "Teleporting to " .. target_name
@@ -437,6 +443,9 @@ core.register_chatcommand("teleport", {
 			teleportee = core.get_player_by_name(teleportee_name)
 		end
 		if teleportee and p.x and p.y and p.z then
+			if teleportee:get_attach() then
+				return false, "Can't teleport, player is attached to an object!"
+			end
 			teleportee:set_pos(p)
 			return true, "Teleporting " .. teleportee_name
 					.. " to " .. core.pos_to_string(p, 1)
@@ -455,6 +464,9 @@ core.register_chatcommand("teleport", {
 			end
 		end
 		if teleportee and p then
+			if teleportee:get_attach() then
+				return false, "Can't teleport, player is attached to an object!"
+			end
 			p = find_free_position_near(p)
 			teleportee:set_pos(p)
 			return true, "Teleporting " .. teleportee_name
@@ -984,13 +996,13 @@ core.register_chatcommand("clearobjects", {
 		end
 
 		core.log("action", name .. " clears all objects ("
-				.. options.mode .. " mode, by "
-				.. name .. ").")
-		core.chat_send_all("Clearing all objects. This may take long."
+				.. options.mode .. " mode).")
+		core.chat_send_all("Clearing all objects. This may take a long time."
 				.. " You may experience a timeout.")
 		core.clear_objects(options)
 		core.log("action", "Object clearing done.")
 		core.chat_send_all("*** Cleared all objects.")
+		return true
 	end
 })
 
@@ -1121,23 +1133,5 @@ core.register_chatcommand("setspawn", {
 		local pos = core.pos_to_string(player:get_pos(), 1)
 		core.settings:set("static_spawnpoint", pos)
 		return true, "The spawn point are set to " .. pos
-	end
-})
-
-core.register_chatcommand("weather", {
-	params = "<weather>",
-	description = "Set weather type",
-	privs = {weather = true},
-	func = function(name, param)
-		if param and (weather.registered[param] or param == "none") then
-			weather.type = param
-			core.chat_send_player(name, "Set weather type: " .. param)
-		else
-			local types = "none"
-			for w, _ in pairs(weather.registered) do
-				types = types .. ", " .. w
-			end
-			core.chat_send_player(name, "Avalible weather types: " .. types)
-		end
 	end
 })
