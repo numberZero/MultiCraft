@@ -391,7 +391,7 @@ void set_default_settings(Settings *settings) {
 	// Altered settings for macOS
 #if defined(__MACH__) && defined(__APPLE__)
 		settings->setDefault("keymap_sneak", "KEY_SHIFT");
-		settings->setDefault("fps_max", "0");
+		settings->setDefault("keymap_increase_viewing_range_min", "=");
 
 		CGFloat ScaleFactor = [[NSScreen mainScreen] backingScaleFactor];
 		settings->setDefault("screen_dpi", std::to_string(72 * ScaleFactor));

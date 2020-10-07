@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-# This file sets the appropiate compiler and flags for compiling for iOS without XCode
+# This file sets the appropiate compiler and flags for compiling for macOS without XCode
 sdk=macosx
 osver=10.10
 
