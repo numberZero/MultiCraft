@@ -1494,6 +1494,11 @@ private:
 	bool m_camera_offset_changed;
 
 	int m_reset_HW_buffer_counter = 0;
+#if defined(__MACH__) && defined(__APPLE__) && !TARGET_OS_IOS
+	int m_reset_HW_buffer_count = 2000;
+#else
+	int m_reset_HW_buffer_count = 500;
+#endif
 #if defined(__ANDROID__) || defined(__IOS__)
 	bool m_cache_hold_aux1;
 	bool m_android_chat_open;
@@ -4382,7 +4387,7 @@ void Game::updateFrame(ProfilerGraph *graph, RunStats *stats, f32 dtime,
 	/*
 		End scene
 	*/
-	if (++m_reset_HW_buffer_counter > 500) {
+	if (++m_reset_HW_buffer_counter > m_reset_HW_buffer_count) {
 		/*
 		  Periodically remove all mesh HW buffers.
 
