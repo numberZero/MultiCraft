@@ -11,15 +11,15 @@ DEST=$(mktemp -d)
 echo
 echo "=> Creating Assets:"
 
-for dir in builtin textures; do
-	cp -r ../../$dir $DEST/$dir
+for dir in builtin textures client/shaders; do
+	cp --parents -r ../../$dir $DEST/
 done
 
 mkdir -p $DEST/fonts
 cp ../../fonts/Retron2000.ttf $DEST/fonts/ # no PNG fonts because freetype
 
 #mkdir -p $DEST/media
-#cp -r native/deps/Android/Irrlicht/shaders $DEST/media/shaders
+cp -r native/deps/Android/Irrlicht/shaders $DEST/client/shaders/Irrlicht
 
 echo
 echo "* Converting locale files:"
