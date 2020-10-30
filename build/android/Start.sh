@@ -35,6 +35,10 @@ for lang in *; do
 done
 popd
 
+find $DEST -type d -name '.git' -print0 | xargs -0 -- rm -r
+find $DEST -type f -name '.git*' -delete
+find $DEST -type f -name '.DS_Store' -delete
+
 # remove broken languages
 for broken_lang in ja ko he; do
 	find $DEST -type d -name $broken_lang -print0 | xargs -0 -- rm -r
