@@ -484,13 +484,14 @@ void set_default_settings(Settings *settings) {
 		settings->setDefault("client_mapblock_limit", "500");
 		settings->setDefault("viewing_range", "80");
 		settings->setDefault("max_block_generate_distance", "5");
-
+#ifdef __IOS__
 		if (@available(iOS 13, *)) {
 			// enable visual shader effects
 			settings->setDefault("enable_waving_water", "true");
 			settings->setDefault("enable_waving_leaves", "true");
 			settings->setDefault("enable_waving_plants", "true");
 		}
+#endif
 	}
 
 	// Android Settings
