@@ -946,9 +946,8 @@ void TouchScreenGUI::show()
 
 void TouchScreenGUI::handleReleaseAll()
 {
-	m_known_ids.clear();
-	if (m_move_id != -1)
-		handleReleaseEvent(m_move_id);
+	while (!m_known_ids.empty())
+		handleReleaseEvent(m_known_ids.back().id);
 	for (auto &button : m_buttons)
-		button.ids.clear();
+		button.ids.clear(); // should do nothing
 }
